@@ -10,6 +10,7 @@ const cartRouter = require('./Routes/Cart')
 const paymentRouter = require('./Routes/Payment')
 require('dotenv').config()
 const bodyParser = require('body-parser')
+const { MongoClient } = require('mongodb');
 // const storage = require('node-sessionstorage')
 // const signIn = require('./Middleware/Signin')
 // const signUp = require('./Middleware/Signup')
@@ -23,7 +24,7 @@ const server = express()
 
 // Parsing the request body it's raw form for stripe webhook.
 // I know this is not the place but wanted to tell you that I spend two nights on this part of code. First night I slept at 5 A.M and the other at 3 A.M. So happy to figure this out. Although its just 5 lines but it kept me up for two straight nights.
-server.use(bodyParser.urlencoded({extended:false}))
+server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json({
   verify: (req, res, buf) => {
     req.rawBody = buf
@@ -50,7 +51,9 @@ server.get('/', (req, res) => {
 
 //Connecting to db
 async function main() {
-  await mongoose.connect(process.env.CONNECT_DB);
+  // await mongoose.connect(process.env.CONNECT_DB);
+  const client = new MongoClient(process.env.CONNECT_DB, { useNewUrlParser: true, useUnifiedTopology: true });
+  await client.connect();
   console.log('DB connection established')
 }
 main().catch(err => console.log(err));
