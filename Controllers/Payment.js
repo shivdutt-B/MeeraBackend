@@ -27,10 +27,8 @@ exports.payment = async (req, res) => {
                     quantity: item.count,
                 };
             }),
-            // success_url: `${process.env.CLIENT_URL}/success`,
-            // cancel_url: `${process.env.CLIENT_URL}/failed`,
-            success_url: `${window.location.origin}/success`,
-            cancel_url: `${window.location.origin}/failed`
+            success_url: `${process.env.CLIENT_URL}/success`,
+            cancel_url: `${process.env.CLIENT_URL}/failed`,
         });
         res.json({ url: session.url });
     } catch (e) {

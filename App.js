@@ -10,8 +10,12 @@ const cartRouter = require('./Routes/Cart')
 const paymentRouter = require('./Routes/Payment')
 require('dotenv').config()
 const bodyParser = require('body-parser')
-const path = require('path')
-
+// const storage = require('node-sessionstorage')
+// const signIn = require('./Middleware/Signin')
+// const signUp = require('./Middleware/Signup')
+// const Auth = require('./Middleware/Auth')
+// const jwt = require('jsonwebtoken')
+// const path = require('path');
 
 
 // Create server
@@ -26,13 +30,10 @@ server.use(bodyParser.json({
   }
 }))
 
-// For deployment
-server.get('/', (req, res) => {
-  server.use(express.static(path.resolve(__dirname, "Frontend", "build")));
-  res.sendFile(path.resolve(__dirname, "Frontend", "build", "index.html"));
-})
-
 // Middlewares and routers
+const corsOptions = {
+  origin: 'https://meera-6tkl.vercel.app', // Allow only this origin
+};
 server.use(cors())
 server.use(express.json())
 server.use(cookieParser())
@@ -42,7 +43,9 @@ server.use(productRoute.productRoute)
 server.use(cartRouter.cartRouter)
 server.use(paymentRouter.paymentRouter)
 
-
+server.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
 
 //Connecting to db
