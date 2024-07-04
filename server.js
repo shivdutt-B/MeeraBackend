@@ -10,7 +10,6 @@ const cartRouter = require('./Routes/Cart')
 const paymentRouter = require('./Routes/Payment')
 require('dotenv').config()
 const bodyParser = require('body-parser')
-const { MongoClient } = require('mongodb');
 
 
 // Create server
@@ -45,10 +44,9 @@ server.get('/', (req, res) => {
 
 //Connecting to db
 async function main() {
-  // await mongoose.connect(process.env.CONNECT_DB);
-  const client = new MongoClient(process.env.CONNECT_DB, { useNewUrlParser: true, useUnifiedTopology: true });
-  await client.connect();
-  console.log(__dirname)
+  await mongoose.connect(process.env.CONNECT_DB);
+  // const client = new MongoClient(process.env.CONNECT_DB, { useNewUrlParser: true, useUnifiedTopology: true });
+  // await client.connect();
   console.log('DB connection established')
 }
 main().catch(err => console.log(err));
