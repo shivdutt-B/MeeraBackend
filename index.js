@@ -11,12 +11,6 @@ const paymentRouter = require('./Routes/Payment')
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const { MongoClient } = require('mongodb');
-// const storage = require('node-sessionstorage')
-// const signIn = require('./Middleware/Signin')
-// const signUp = require('./Middleware/Signup')
-// const Auth = require('./Middleware/Auth')
-// const jwt = require('jsonwebtoken')
-// const path = require('path');
 
 
 // Create server
@@ -54,6 +48,7 @@ async function main() {
   // await mongoose.connect(process.env.CONNECT_DB);
   const client = new MongoClient(process.env.CONNECT_DB, { useNewUrlParser: true, useUnifiedTopology: true });
   await client.connect();
+  console.log(__dirname)
   console.log('DB connection established')
 }
 main().catch(err => console.log(err));
